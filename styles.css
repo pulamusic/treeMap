@@ -21,6 +21,14 @@ svg {
   border: 0.5px solid #000;
 }
 
+#tooltip {
+  position: absolute;
+  pointer-events: none;
+  background-color: #847043;
+  color: #fff;
+  padding: 10px;
+}
+
 footer p {
   text-align: center;
   margin-top: 20px;

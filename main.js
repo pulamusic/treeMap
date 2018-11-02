@@ -18,7 +18,7 @@ const data = [
   }
 ]
 
-// ********************BUTTON SELECTION & GLOBAL VARIABLES*************************
+// ********************GLOBAL VARIABLES*************************
 
 const kickstarter = d3.select("#kickstarter")
 const movie = d3.select("#movie")
@@ -39,10 +39,11 @@ const description = d3.select(".header-div")
 const svg = d3.select(".map-div")
   .append("svg")
   .attr("width", width)
-  .attr("height", height)
+  .attr("height", height * 2)
 
-const tooltip = d3.select(".map-div")
+const tooltip = d3.select("body")
   .append("div")
+  .attr("class", "tooltip")
   .attr("id", "tooltip")
   .style("opacity", 0)
 
@@ -56,9 +57,11 @@ const json = (data) => {
         .remove()
     }
 
+    // render title and subtitle
     header.text(data.text[0])
     description.text(data.text[1])
 
+    // create treemap
     let root = d3.hierarchy(json)
     const treemap = d3.treemap()
       .size([width, height])
@@ -81,14 +84,17 @@ const json = (data) => {
       }
     })
 
+    // let d3 choose the colors
     const colors = d3.scaleOrdinal(d3.schemePaired)
 
+    // create the information nodes
     const nodes = svg.selectAll("g")
       .data(root)
       .enter()
       .append("g")
       .attr("transform", d => `translate(${d.x0}, ${d.y0})`)
 
+    // create the data rectangles
     nodes.append("rect")
       .attr("width", (d) => d.x1 - d.x0)
       .attr("height", (d) => d.y1 - d.y0)
@@ -118,7 +124,7 @@ const json = (data) => {
       .attr("height", (d) => d.y1 - d.y0)
       .html((d) => d.data.name)
 
-    // legend
+    // generate legend
     const legend = svg.append("g")
       .attr("id", "legend")
       .attr("transform", `translate(${(width - 530) / 2}, ${height + padding / 2})`)
@@ -134,13 +140,13 @@ const json = (data) => {
       .attr("y", (d, i) => 70 * Math.floor(i / 3))
       .style("fill", (d) => colors(d))
 
-      legend.selectAll("text")
-        .data(categories)
-        .enter()
-        .append("text")
-        .attr("x", (d, i) => 250 * (i % 3) + 40)
-        .attr("y", (d, i) => 70 * Math.floor(i / 3) + 20)
-        .text((d) => d)
+    legend.selectAll("text")
+      .data(categories)
+      .enter()
+      .append("text")
+      .attr("x", (d, i) => 250 * (i % 3) + 40)
+      .attr("y", (d, i) => 70 * Math.floor(i / 3) + 20)
+      .text((d) => d)
 
   }) // end of json call
 

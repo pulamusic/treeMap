@@ -1,0 +1,35 @@
+body {
+  font-family: "open sans condensed", sans-serif;
+  font-size: 20px;
+  background-color: #eae3d3;
+  padding: 0;
+  margin: 0;
+}
+
+svg {
+  display: block;
+  margin: 0 auto;
+  font-size: 0.6em;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.3);
+}
+
+.header-div {
+  text-align: center;
+}
+
+.btn {
+  border: 0.5px solid #000;
+}
+
+footer p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+footer .fa-github {
+  color: #000;
+}
+
+footer .fa-facebook-square {
+  color: #4267B2;
+}

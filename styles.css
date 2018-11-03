@@ -21,7 +21,7 @@ svg {
   border: 0.5px solid #000;
 }
 
-#tooltip {
+.tooltip {
   position: absolute;
   pointer-events: none;
   background-color: #847043;

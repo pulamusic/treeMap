@@ -41,7 +41,7 @@ const svg = d3.select(".map-div")
   .attr("width", width)
   .attr("height", height * 2)
 
-const tooltip = d3.select("body")
+const tooltip = d3.select(".map-div")
   .append("div")
   .attr("class", "tooltip")
   .attr("id", "tooltip")
@@ -104,19 +104,19 @@ const json = (data) => {
       .attr("data-value", (d) => d.value)
       .style("fill", (d) => colors(d.data.category))
       // tooltip on mouseover
-      .on("mouseover", (d) => {
+      .on("mousemove", (d) => {
+        console.log("mouseover")
         tooltip
           .style("opacity", 0.9)
           .attr("data-value", () => d.data.value)
           .style("top", event.pageY - 25 + "px")
           .style("left", event.pageX + 15 + "px")
-          .html(
-            `<span>${d.data.name}</span><br><span>${d.data.category}</span><br><span>${d.data.value}</span>`
-          )
+          .html(`<span>${d.data.name}</span><br><span>${d.data.category}</span><br><span>${d.data.value}</span>`)
       })
       // tooltip mouseout
       .on("mouseout", (d) => {
-        tooltip.style("opacity", 0)
+        tooltip
+          .style("opacity", 0)
       })
 
     nodes.append("foreignObject")
